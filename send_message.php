@@ -11,7 +11,7 @@ function r_error($mess)
 function check_password($password)
 {
     $parsed_pass = parse_ini_file('ressources/password/password.ini');
-    if($password == $parsed_pass['password'])
+    if(password_verify($password, $parsed_pass['password']))
     { return 0; }
     else
     { return 1; }
