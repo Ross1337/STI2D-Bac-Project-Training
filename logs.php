@@ -59,8 +59,11 @@ include('ressources/database/login_to_db.php');
 
 								$db3 = login_db();
 								$db3 = $db3->query('SELECT message FROM messages ORDER BY post_date DESC LIMIT 1');
-								$db3 = $db3->fetch();
-								echo htmlspecialchars(strip_tags($db3['message']));
+                                $db3 = $db3->fetch();
+                                if(empty($db3['message']))
+                                { echo 'No messages in db.'; }
+                                else
+                                { echo htmlspecialchars(strip_tags($db3['message'])); }
 
 							?>
 							</strong>	
@@ -69,8 +72,12 @@ include('ressources/database/login_to_db.php');
 
 								$db2 = login_db();
 								$db2 = $db2->query('SELECT post_date FROM messages ORDER BY post_date DESC LIMIT 1');
-								$db2 = $db2->fetch();
-								echo htmlspecialchars($db2['post_date']);
+                                $db2 = $db2->fetch();
+                                if(empty($db2['post_date']))
+                                { echo 'No messages in db.'; }
+                                else
+                                { echo htmlspecialchars($db2['post_date']); }
+								
 									
 							?>
 							</strong> )
@@ -78,8 +85,74 @@ include('ressources/database/login_to_db.php');
 				</ol>
 			</nav>
 
+            <?php
+
+			if(isset($_GET['success']) && !empty($_GET['success']) && is_string($_GET['success']))
+			{
+				echo 
+				'<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+					×
+				</button>
+				<strong>Warning!</strong> ' . htmlspecialchars(strip_tags($_GET['success'])) . '
+				</div>';
+			}
+
+			if(isset($_GET['error']) && !empty($_GET['error']) && is_string($_GET['error']))
+			{
+				echo 
+				'<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+					×
+				</button>
+				<strong>Warning!</strong> ' . htmlspecialchars(strip_tags($_GET['error'])) . '
+				</div>';
+			}
+
+			?>
+
 			<div class="row">
-				<div class="col-md-4"></div>
+				<div class="col-md-4">
+                    <a id="modal-425662" href="#modal-container-425662" role="button" class="btn" data-toggle="modal">Clean Logs</a>
+                        
+                        <div class="modal fade" id="modal-container-425662" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">
+                                            Clean all logs
+                                        </h5> 
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="clean_logs.php" method="POST">
+
+                                        <div class="form-group">
+                                            <label for="your_pass">
+                                                Your password
+                                            </label>
+                                            <input type="password" class="form-control" id="your_pass" name="password" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        
+                                            <button type="submit" class="btn btn-primary">
+                                                Clean all logs
+                                            </button> 
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                </div>
 				<div class="col-md-4">
                         <table class="table">
                         <thead>
