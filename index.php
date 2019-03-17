@@ -60,7 +60,10 @@ include('ressources/database/login_to_db.php');
 								$db3 = login_db();
 								$db3 = $db3->query('SELECT message FROM messages ORDER BY post_date DESC LIMIT 1');
 								$db3 = $db3->fetch();
-								echo htmlspecialchars(strip_tags($db3['message']));
+								if(empty($db3['message']))
+                { echo 'No messages in db.'; }
+                else
+                { echo htmlspecialchars(strip_tags($db3['message'])); }
 
 							?>
 							</strong>	
@@ -70,7 +73,10 @@ include('ressources/database/login_to_db.php');
 								$db2 = login_db();
 								$db2 = $db2->query('SELECT post_date FROM messages ORDER BY post_date DESC LIMIT 1');
 								$db2 = $db2->fetch();
-								echo htmlspecialchars($db2['post_date']);
+								if(empty($db2['post_date']))
+                { echo 'No messages in db.'; }
+                else
+                { echo htmlspecialchars($db2['post_date']); }
 									
 							?>
 							</strong> )
@@ -152,6 +158,7 @@ include('ressources/database/login_to_db.php');
 						</div>
 						
 					</div>
+					
 				</div>
 				<div class="col-md-2">
 						
