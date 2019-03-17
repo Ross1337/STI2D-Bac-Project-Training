@@ -1,3 +1,9 @@
+<?php
+
+include('ressources/database/login_to_db.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,7 +34,14 @@
 					<div class="col-md-2 col-md-offset-2">
               <div class="alert alert-warning alert-dismissable">
 									<strong>Total data sent : </strong> 
-									15
+									<?php
+
+									$db1 = login_db();
+									$db1 = $db1->query('SELECT COUNT(id) as total_sent FROM messages');
+									$db1 = $db1->fetch();
+									echo $db1['total_sent'];
+
+									?>
               </div>
 					</div>
       </div>
@@ -41,7 +54,26 @@
 						<a href="logs.php">Logs</a>
 					</li>
 					<li class="breadcrumb-item">
-						Last update :		
+						Last message :		<strong>
+						<?php
+
+								$db3 = login_db();
+								$db3 = $db3->query('SELECT message FROM messages ORDER BY post_date DESC LIMIT 1');
+								$db3 = $db3->fetch();
+								echo htmlspecialchars(strip_tags($db3['message']));
+
+							?>
+							</strong>	
+							|	( <strong>
+						<?php
+
+								$db2 = login_db();
+								$db2 = $db2->query('SELECT post_date FROM messages ORDER BY post_date DESC LIMIT 1');
+								$db2 = $db2->fetch();
+								echo htmlspecialchars($db2['post_date']);
+									
+							?>
+							</strong> )
 					</li>
 				</ol>
 			</nav>
