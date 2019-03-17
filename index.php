@@ -105,7 +105,54 @@ include('ressources/database/login_to_db.php');
 			?>
 
 			<div class="row">
-				<div class="col-md-5"></div>
+				<div class="col-md-5">
+						<a id="modal-425662" href="#modal-container-425662" role="button" class="btn" data-toggle="modal">Change password</a>
+					
+					<div class="modal fade" id="modal-container-425662" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="myModalLabel">
+										Change the password
+									</h5> 
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">
+										<form action="change_password.php" method="POST">
+
+											<div class="form-group">
+												<label for="old_pass">
+													Old password
+												</label>
+												<input type="text" class="form-control" id="old_pass" name="old_pass" required>
+											</div>
+
+									<div class="form-group">
+										<label for="new_pass">
+											New password
+										</label>
+										<input type="password" class="form-control" id="new_pass" name="new_pass" required>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									
+										<button type="submit" class="btn btn-primary">
+											Update
+										</button> 
+									</form>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">
+										Close
+									</button>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
 				<div class="col-md-2">
 						
 					<form role="form" method="POST" action="send_message.php">
